@@ -147,3 +147,27 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+from opentelemetry.instrumentation.django import DjangoInstrumentor
+from opentelemetry.sdk.trace import TracerProvider
+from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from azure.monitor.opentelemetry.exporter import AzureMonitorTraceExporter
+from opentelemetry import trace
+
+# Configuration de l'exportateur Azure Monitor
+trace_exporter = AzureMonitorTraceExporter(
+    connection_string='InstrumentationKey=ea3b5e3a-8443-4fbf-87fa-155068742948'
+)
+
+# Configuration du Tracer Provider
+trace_provider = TracerProvider()
+trace_provider.add_span_processor(
+    BatchSpanProcessor(trace_exporter)
+)
+
+# Définir le fournisseur de traceur global
+trace.set_tracer_provider(trace_provider)
+
+# Instrumentation de Django
+DjangoInstrumentor().instrument()
