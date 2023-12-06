@@ -1,0 +1,11 @@
+<nav>
+    <ul>
+        <li><a href="{% url 'index' %}">Accueil</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Déconnexion</a></li>
+            <li>Bonjour, {{ user.get_full_name }}</li>
+        {% else %}
+            <li><a href="{% url 'login' %}">Connexion</a></li>
+        {% endif %}
+    </ul>
+</nav>

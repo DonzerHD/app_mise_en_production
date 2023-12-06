@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Mon App{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'monapp/style.css' %}">
+</head>
+<body>
+    <header>
+        {% include 'monapp/navbar.html' %}
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Mon App</p>
+    </footer>
+</body>
+</html>

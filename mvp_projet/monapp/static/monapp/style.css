@@ -1,10 +1,40 @@
 body {
-    background-color: #eaeaea;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    margin-top: 50px;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-h1 {
-    color: red;
+header, footer {
+    background-color: #003366; /* Bleu foncé */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
 }
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Ajoutez plus de styles selon vos besoins */

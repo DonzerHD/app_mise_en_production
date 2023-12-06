@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'mvp_projet.wsgi.application'
 db_mode = os.getenv('DJANGO_DB_MODE')
 
 if db_mode == 'dev':
-    # Configuration de la base de données de production
+    # Configuration de la base de données de dev
     DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -91,7 +91,7 @@ if db_mode == 'dev':
         }
     }
 else:
-    # Configuration de la base de données de développement
+    # Configuration de la base de données de prod
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',

@@ -1,13 +1,7 @@
+{% extends 'monapp/base.html' %}
 
-{% load static %}
+{% block title %}Accueil{% endblock %}
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Accueil</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'monapp/style.css' %}">
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
-</html>
+{% block content %}
+    <h1>Bienvenue sur Mon App</h1>
+{% endblock %}
