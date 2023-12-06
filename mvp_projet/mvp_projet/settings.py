@@ -76,19 +76,22 @@ TEMPLATES = [
 WSGI_APPLICATION = 'mvp_projet.wsgi.application'
 
 
-# Database
+
+# database  commands switch "python manage.py switch_env prod  # Pour la production
+#                            python manage.py switch_env dev   # Pour le développement"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+db_mode = os.getenv('DJANGO_DB_MODE')
 
-
-DATABASES = {
-    'default': {
+if db_mode == 'dev':
+    # Configuration de la base de données de production
+    DATABASES = {
+        'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
-# Utilisez une variable d'environnement pour déterminer si vous êtes en production
-if os.getenv('DJANGO_PRODUCTION') == 'true':
+else:
+    # Configuration de la base de données de développement
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -135,7 +138,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+#python manage.py collectstatic
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
