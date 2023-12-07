@@ -10,3 +10,5 @@ opentelemetry-sdk
 opentelemetry-instrumentation-django
 azure-monitor-opentelemetry-exporter
 opentelemetry-api
+pytest
+pytest-django
