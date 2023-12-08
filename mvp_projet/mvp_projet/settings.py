@@ -97,7 +97,7 @@ elif db_mode == 'test':
             'NAME': 'test_db',
             'USER': 'test_user',
             'PASSWORD': 'test_password',
-            'HOST': 'postgres',  # Utilisez le nom du service GitHub Actions
+            'HOST': 'localhost',  # Utilisez localhost si le test s'exécute sur la machine hôte
             'PORT': '5432',
         }
     }
