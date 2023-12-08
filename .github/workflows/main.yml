@@ -51,6 +51,8 @@ jobs:
         python manage.py collectstatic --noinput
 
     - name: Run tests
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         cd mvp_projet
         pytest
