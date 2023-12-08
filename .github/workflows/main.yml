@@ -2,14 +2,15 @@ name: Django CI
 
 on:
   push:
-    branches: [ develop ]
+    branches: [develop]
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
+    environment:
+      name: environnement # Utilisez le nom de votre environnement ici
 
     steps:
     - uses: actions/checkout@v2
