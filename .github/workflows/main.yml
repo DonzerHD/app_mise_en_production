@@ -44,11 +44,6 @@ jobs:
         cd mvp_projet
         python manage.py migrate
 
-    - name: Print database configuration
-      run: |
-        cd mvp_projet
-        python -c "import django; django.setup(); from django.conf import settings; print(settings.DATABASES)"
-
     - name: Collect static files
       run: |
         cd mvp_projet
