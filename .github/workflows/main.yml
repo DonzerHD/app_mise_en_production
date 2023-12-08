@@ -43,10 +43,23 @@ jobs:
       run: |
         echo "DJANGO_DB_MODE=test" >> $GITHUB_ENV
 
+    - name: Wait for PostgreSQL to be ready
+      run: |
+        until pg_isready -h postgres -p 5432; do
+          echo "Waiting for PostgreSQL to become ready..."
+          sleep 2
+        done
+        echo "PostgreSQL is ready!"
+
     - name: Apply migrations
       run: |
         cd mvp_projet
         python manage.py migrate
+
+    - name: Print database configuration
+      run: |
+        cd mvp_projet
+        python -c "from django.conf import settings; print(settings.DATABASES)"
 
     - name: Collect static files
       run: |
@@ -57,3 +70,8 @@ jobs:
       run: |
         cd mvp_projet
         pytest
+
+    - name: Print PostgreSQL service logs (if failure)
+      if: failure()
+      run: |
+        docker logs postgres
