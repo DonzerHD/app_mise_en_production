@@ -43,6 +43,16 @@ jobs:
       run: |
         echo "DJANGO_DB_MODE=test" >> $GITHUB_ENV
 
+    - name: Apply migrations
+      run: |
+        cd mvp_projet
+        python manage.py migrate
+
+    - name: Collect static files
+      run: |
+        cd mvp_projet
+        python manage.py collectstatic --noinput
+
     - name: Run tests
       run: |
         cd mvp_projet
