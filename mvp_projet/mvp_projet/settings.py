@@ -90,6 +90,17 @@ if db_mode == 'dev':
         'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+elif db_mode == 'test':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'test_db',
+            'USER': 'test_user',
+            'PASSWORD': 'test_password',
+            'HOST': 'localhost',  # Ou l'adresse IP du service GitHub Actions si différente
+            'PORT': 5432,
+        }
+    }
 else:
     # Configuration de la base de données de prod
     DATABASES = {
