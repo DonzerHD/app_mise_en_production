@@ -94,11 +94,11 @@ elif db_mode == 'test':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'test_db',
-            'USER': 'test_user',
-            'PASSWORD': 'test_password',
-            'HOST': 'localhost',  # Utilisez localhost si le test s'exécute sur la machine hôte
-            'PORT': '5432',
+            'NAME': os.getenv('POSTGRES_DB', 'test_db'),  # Utilise la variable d'environnement ou 'test_db' par défaut
+            'USER': os.getenv('POSTGRES_USER', 'test_user'),  # Utilise la variable d'environnement ou 'test_user' par défaut
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'test_password'),  # Utilise la variable d'environnement ou 'test_password' par défaut
+            'HOST': os.getenv('POSTGRES_HOST', 'localhost'),  # Utilise la variable d'environnement ou 'localhost' par défaut
+            'PORT': os.getenv('POSTGRES_PORT', '5432'),  # Utilise la variable d'environnement ou '5432' par défaut
         }
     }
 else:

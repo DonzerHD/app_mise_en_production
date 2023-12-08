@@ -11,21 +11,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_DB: test_db
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_password
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
     - uses: actions/checkout@v2
 
@@ -39,17 +24,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r mvp_projet/requirements.txt
 
+    - name: Set up PostgreSQL
+      uses: ikalnytskyi/action-setup-postgres@v4
+      with:
+        username: 'test_user'
+        password: 'test_password'
+        database: 'test_db'
+
     - name: Set environment variables for testing
       run: |
         echo "DJANGO_DB_MODE=test" >> $GITHUB_ENV
-
-    - name: Wait for PostgreSQL to be ready
-      run: |
-        until pg_isready -h postgres -p 5432; do
-          echo "Waiting for PostgreSQL to become ready..."
-          sleep 2
-        done
-        echo "PostgreSQL is ready!"
+        echo "POSTGRES_USER=test_user" >> $GITHUB_ENV
+        echo "POSTGRES_PASSWORD=test_password" >> $GITHUB_ENV
+        echo "POSTGRES_DB=test_db" >> $GITHUB_ENV
+        echo "DATABASE_URL=postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}" >> $GITHUB_ENV
 
     - name: Apply migrations
       run: |
@@ -70,8 +58,3 @@ jobs:
       run: |
         cd mvp_projet
         pytest
-
-    - name: Print PostgreSQL service logs (if failure)
-      if: failure()
-      run: |
-        docker logs postgres
