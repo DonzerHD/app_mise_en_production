@@ -37,6 +37,7 @@ jobs:
         echo "POSTGRES_USER=test_user" >> $GITHUB_ENV
         echo "POSTGRES_PASSWORD=test_password" >> $GITHUB_ENV
         echo "POSTGRES_DB=test_db" >> $GITHUB_ENV
+        echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
         echo "DATABASE_URL=postgres://${{ env.POSTGRES_USER }}:${{ env.POSTGRES_PASSWORD }}@localhost:5432/${{ env.POSTGRES_DB }}" >> $GITHUB_ENV
 
     - name: Apply migrations
@@ -51,6 +52,5 @@ jobs:
 
     - name: Run tests
       run: |
-        echo "SECRET_KEY=django-insecure--+isl(hg@+x(g(_*ndx7wpy1l+5!4q$_!nhxo0+y!=vy@jr()6" >> $GITHUB_ENV
         cd mvp_projet
         pytest
