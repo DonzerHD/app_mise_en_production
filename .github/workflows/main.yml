@@ -47,7 +47,7 @@ jobs:
     - name: Print database configuration
       run: |
         cd mvp_projet
-        python -c "from django.conf import settings; print(settings.DATABASES)"
+        python -c "import django; django.setup(); from django.conf import settings; print(settings.DATABASES)"
 
     - name: Collect static files
       run: |
