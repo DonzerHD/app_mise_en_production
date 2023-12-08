@@ -55,4 +55,9 @@ jobs:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         cd mvp_projet
+        if [ -z "${SECRET_KEY}" ]; then
+          echo "La clé secrète n'est pas définie."
+        else
+          echo "La clé secrète est définie."
+        fi
         pytest
